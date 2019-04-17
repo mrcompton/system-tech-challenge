@@ -16,10 +16,11 @@ class toDo extends Component{
         }
     }
 
-    componentDidUpdate(){
-        console.log('todo', this.state.itemsList)
+    handleUpdateToDo = () => {
+        this.setState({
+            itemsList: this.props.todoList
+        })
     }
-
     handleToggle = () => {
         this.setState({
             showInput: true
@@ -45,9 +46,10 @@ class toDo extends Component{
 
         let mappedTasks = this.state.itemsList.map((val, i) => {
             return( 
-                <EachTask key={i} task={val} location={this.state.location} />
+                <EachTask key={i} task={val} location={this.state.location} updateTodo={this.handleUpdateToDo}/>
             )
         })
+        console.log('rerender todo')
         return (
             <div className='column todo'>
                 <h2>To Do</h2>

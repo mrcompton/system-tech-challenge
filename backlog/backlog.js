@@ -34,10 +34,10 @@ class Backlog extends Component {
         // console.log(this.state.newItem)
     }
     handleSave = () => {
-        // let arr = this.state.itemsList
-        // arr.push(this.state.newItem)
+        let arr = this.state.itemsList
+        arr.push(this.state.newItem)
         this.setState({
-            // itemsList: arr,
+            itemsList: arr,
             showInput: false
         })
 
@@ -47,7 +47,7 @@ class Backlog extends Component {
 
         let mappedTasks = this.props.backList.map((val, i) => {
             return( 
-                <EachTask key={i} task={val} location={this.state.location} handleUpdate = {()=>this.props.handleUpdate()}/>
+                <EachTask key={i} task={val} location={this.state.location}/>
             )
         })
 

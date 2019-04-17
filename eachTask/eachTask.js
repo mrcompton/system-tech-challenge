@@ -22,7 +22,7 @@ class EachTask extends Component {
         let todoList = this.props.todoList
         todoList.push(task)
         this.props.updateLists({backList, todoList})
-        this.props.handleUpdate()
+        
     }
     render() {
         console.log("final 1", this.props.backList, "final 2", this.props.todoList)
@@ -33,6 +33,7 @@ class EachTask extends Component {
                         ? <div>
                             <span>{this.props.task}</span>
                             <button className='btn' onClick={this.handleBacklogRight}><i className="fas fa-arrow-right"></i></button>
+                            
                         </div>
                         : null
                 }
