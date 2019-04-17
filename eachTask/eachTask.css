@@ -1,6 +1,20 @@
 .task-card{
-    height: 60px;
-    width: 250px;
+    height: auto;
+    width: 150px;
     background-color: lightgrey;
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
 }
+
+.btn{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+

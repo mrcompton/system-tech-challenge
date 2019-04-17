@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import './backlog.css';
 import EachTask from '../eachTask/eachTask';
+import {connect} from 'react-redux'
+import {updateLists} from '../../redux/reducer'
 
 
-class backlog extends Component {
+class Backlog extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             newItem: '',
-            itemsList: ['test1', 'test 2', 'test 3'],
-            showInput: false
+            itemsList: this.props.backList,
+            showInput: false,
+            location: 'backlog'
         }
     }
 
+    componentDidUpdate(){
+        console.log('back', this.state.itemsList)
+    }
+    
     handleToggle = () => {
         this.setState({
             showInput: true
@@ -27,17 +34,23 @@ class backlog extends Component {
         // console.log(this.state.newItem)
     }
     handleSave = () => {
+        // let arr = this.state.itemsList
+        // arr.push(this.state.newItem)
         this.setState({
+            // itemsList: arr,
             showInput: false
         })
+
     }
+
     render() {
 
-        let mappedTasks = this.state.itemsList.map((val, i) => {
+        let mappedTasks = this.props.backList.map((val, i) => {
             return( 
-                <EachTask key={i} task={val}/>
+                <EachTask key={i} task={val} location={this.state.location} handleUpdate = {()=>this.props.handleUpdate()}/>
             )
         })
+
         return (
             <div className='column backlog'>
                 <h2>Backlog</h2>
@@ -57,4 +70,9 @@ class backlog extends Component {
 
 }
 
-export default backlog
+const mapStateToProps = reduxState => {
+    return {
+        backList: reduxState.backList
+    }
+}
+export default connect(mapStateToProps, {updateLists})(Backlog)

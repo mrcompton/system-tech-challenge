@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import './inProgress.css'
-
+import EachTask from '../eachTask/eachTask';
+import {connect} from 'react-redux'
+import {updateLists} from '../../redux/reducer'
 
 class inProgress extends Component{
     constructor(props){
@@ -8,8 +10,9 @@ class inProgress extends Component{
 
         this.state = {
             newItem: '',
-            itemsList: ['test1, test 2'],
-            showInput: false
+            itemsList: this.props.progressList,
+            showInput: false,
+            location: 'progress'
         }
     }
 
@@ -26,14 +29,25 @@ class inProgress extends Component{
     }
 
     handleSave = () => {
+        let arr = this.state.itemsList
+        arr.push(this.state.newItem)
         this.setState({
+            itemsList: arr,
             showInput: false
         })
     }
-    render(){
+
+    render() {
+
+        let mappedTasks = this.state.itemsList.map((val, i) => {
+            return( 
+                <EachTask key={i} task={val} location={this.state.location} handleUpdate={this.props.handleUpdate}/>
+            )
+        })
         return (
             <div className='column progress'>
                 <h2>In Progress</h2>
+                {mappedTasks}
                 {!this.state.showInput
                     ? <button onClick={this.handleToggle}>Add Item</button>
                     : <div className='save'>
@@ -47,4 +61,9 @@ class inProgress extends Component{
    
 }
 
-export default inProgress
+const mapStateToProps = reduxState => {
+    return {
+        progressList: reduxState.progressList
+    }
+}
+export default connect(mapStateToProps,{updateLists})(inProgress)
